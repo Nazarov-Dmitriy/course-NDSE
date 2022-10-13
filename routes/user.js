@@ -137,18 +137,6 @@ router.get('/api/signin', async (req, res) => {
 })
 
 
-router.get('/api/advertisements', async (req, res) => {
-    try {
-        res.render("advertisement/index", {
-            title: "Обьявления",
-            advertisement: 'advertisement',
-            user: req.user
-        });
-    } catch (e) {
-        res.status(500).json(e)
-    }
-})
-
 router.get('/api/logout', function (req, res, next) {
     req.logout(function (err) {
         if (err) {

@@ -1,11 +1,14 @@
-const express = require('express')
-const rooter = require('./routes/routes')
-const mongoose = require('mongoose')
+const express = require('express');
+const userRooter = require('./routes/user');
+const advertisementsRooter = require('./routes/advertisement');
+const mongoose = require('mongoose');
+const fileMulter = require('./middleware/file')
+
 require('dotenv').config()
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const passport = require('passport')
-const session = require('express-session')
+const passport = require('passport');
+const session = require('express-session');
 
 mongoose.Promise = global.Promise;
 
@@ -16,6 +19,8 @@ const PORT = process.env.PORT || 7070
 
 
 const app = express()
+app.use(express.static(__dirname));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -29,9 +34,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-
-
-app.use('/', rooter)
+app.use('/', userRooter)
+app.use('/', advertisementsRooter)
 
 // const PORT = process.env.PORT || 7070
 // app.listen(PORT, () => {
